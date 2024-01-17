@@ -1,5 +1,5 @@
 const NewsApi = require("newsapi");
-const newsapi = new NewsApi('f045dada0f6e496283f1e423c96ebe22');
+const newsapi = new NewsApi('');
 
 const sportsController = {
 
