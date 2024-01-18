@@ -1,22 +1,34 @@
 const NewsApi = require("newsapi");
-const newsapi = new NewsApi('f045dada0f6e496283f1e423c96ebe22');
+const newsapi = new NewsApi("");
 
 const sportsController = {
-
   getTopHeadlines: async (req, res) => {
     try {
       const response = await newsapi.v2.topHeadlines({
-        sources: 'bbc-news,the-verge',
-        q: 'bitcoin',
-        category: 'business',
-        language: 'en',
-        country: 'us',
+        category: "sports",
+        language: "en",
       });
 
+      console.log("Top Headlines Response:", response);
       res.json(response);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error; 'Internal Server Error' })    
+      console.error("Error fetching top headlines:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  getTopHeadlinesSources: async (req, res) => {
+    try {
+      const response = await newsapi.v2.sources({
+        category: "sports",
+        language: "en",
+      });
+
+      console.log("Top Headlines Sources Response:", response);
+      res.json(response);
+    } catch (error) {
+      console.error("Error fetching top headlines sources:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 
@@ -25,19 +37,18 @@ const sportsController = {
 
     try {
       const response = await newsapi.v2.everything({
-        q: query, // User-provided search query
-        category: 'sports', // Specify sports category
-        language: 'en',
+        q: query,
+        category: "sports",
+        language: "en",
       });
 
+      console.log("Search News Response:", response);
       res.json(response);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error("Error searching news:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
-
-  // Additional methods as needed
 };
 
 module.exports = sportsController;
